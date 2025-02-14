@@ -19,7 +19,12 @@ export default function Home() {
   };
 
   const togglePlay = () => {
-    setState(prev => ({ ...prev, isPlaying: !prev.isPlaying }));
+    // Don't start playing if we're at the end
+    if (!state.isPlaying && state.currentIndex >= state.words.length - 1) {
+      setState(prev => ({ ...prev, currentIndex: 0, progress: 0, isPlaying: true }));
+    } else {
+      setState(prev => ({ ...prev, isPlaying: !prev.isPlaying }));
+    }
   };
 
   const updateWPM = (newWPM: number) => {
@@ -70,6 +75,18 @@ export default function Home() {
     };
   }, [state.isPlaying, state.wpm]);
 
+  const handleReset = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+    setState(prev => ({
+      ...prev,
+      currentIndex: 0,
+      isPlaying: false,
+      progress: 0
+    }));
+  };
+
   return (
     <div className="min-h-screen bg-background p-4 flex flex-col items-center justify-center gap-8">
       <h1 className="text-4xl font-bold text-primary">Speed Reader</h1>
@@ -91,7 +108,7 @@ export default function Home() {
               onWPMChange={updateWPM}
               onRewind={() => jumpTo(state.currentIndex - 1)}
               onForward={() => jumpTo(state.currentIndex + 1)}
-              onReset={() => setState(initialReaderState)}
+              onReset={handleReset}
               onProgressChange={handleProgressChange}
             />
           </>
