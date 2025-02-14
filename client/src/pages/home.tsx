@@ -18,9 +18,10 @@ export default function Home() {
   };
 
   const togglePlay = () => {
-    // Don't start playing if we're at the end
     if (!state.isPlaying && state.currentIndex >= state.words.length - 1) {
       setState(prev => ({ ...prev, currentIndex: 0, isPlaying: true }));
+    } else if (state.currentIndex >= state.words.length - 1) {
+      setState(prev => ({ ...prev, currentIndex: 0, isPlaying: false }));
     } else {
       setState(prev => ({ ...prev, isPlaying: !prev.isPlaying }));
     }
@@ -36,6 +37,7 @@ export default function Home() {
     setState(prev => ({
       ...prev,
       currentIndex: newIndex,
+      isPlaying: newIndex < state.words.length - 1 ? prev.isPlaying : false
     }));
   };
 
