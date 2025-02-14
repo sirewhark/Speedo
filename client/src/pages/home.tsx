@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
-import TextInput from "@/components/reader/text-input";
-import WordDisplay from "@/components/reader/word-display";
-import Controls from "@/components/reader/controls";
+import { TextInput, WordDisplay, Controls } from "@/components/reader";
 import { ReaderState, initialReaderState, splitIntoWords, msPerWord, calculateProgress } from "@/lib/reader";
 
 export default function Home() {
