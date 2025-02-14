@@ -12,10 +12,10 @@ export default function WordDisplay({ word, isPlaying }: WordDisplayProps) {
       <AnimatePresence mode="wait">
         <motion.span
           key={word}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.2 }}
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -50 }}
+          transition={{ duration: 0.15 }}
           className={`text-4xl md:text-6xl font-bold ${
             isPlaying ? "text-primary" : "text-foreground"
           }`}
