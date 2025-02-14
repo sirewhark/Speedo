@@ -25,7 +25,8 @@ export function splitIntoWords(text: string): string[] {
 
 export function calculateProgress(currentIndex: number, totalWords: number): number {
   if (totalWords === 0) return 0;
-  return Math.round((currentIndex / totalWords) * 100);
+  // Calculate progress as a percentage with one decimal place precision
+  return Math.min(Math.round((currentIndex / (totalWords - 1)) * 100), 100);
 }
 
 export function msPerWord(wpm: number): number {

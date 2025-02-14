@@ -32,6 +32,7 @@ export default function Home() {
   };
 
   const jumpTo = (index: number) => {
+    if (state.words.length === 0) return;
     const newIndex = Math.max(0, Math.min(index, state.words.length - 1));
     setState(prev => ({
       ...prev,
@@ -42,8 +43,9 @@ export default function Home() {
 
   const handleProgressChange = (newProgress: number) => {
     if (state.words.length === 0) return;
-    const newIndex = Math.floor((newProgress / 100) * state.words.length);
-    jumpTo(newIndex);
+    // Calculate the target index based on the progress percentage
+    const targetIndex = Math.round((newProgress / 100) * (state.words.length - 1));
+    jumpTo(targetIndex);
   };
 
   useEffect(() => {
