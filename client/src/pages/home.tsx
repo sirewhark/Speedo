@@ -89,8 +89,8 @@ export default function Home() {
               totalWords={state.words.length}
               onPlayPause={togglePlay}
               onWPMChange={updateWPM}
-              onRewind={() => jumpTo(state.currentIndex - 1)}
-              onForward={() => jumpTo(state.currentIndex + 1)}
+              onRewind={() => jumpTo(state.currentIndex - 10)}
+              onForward={() => jumpTo(state.currentIndex + 10)}
             />
           </>
         )}
