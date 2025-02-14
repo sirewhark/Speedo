@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { TextInput, WordDisplay, Controls } from "@/components/reader";
-import { ReaderState, initialReaderState, splitIntoWords, msPerWord, calculateProgress } from "@/lib/reader";
+import { ReaderState, initialReaderState, splitIntoWords, msPerWord } from "@/lib/reader";
 
 export default function Home() {
   const [state, setState] = useState<ReaderState>(initialReaderState);
@@ -14,14 +14,13 @@ export default function Home() {
       words: splitIntoWords(text),
       currentIndex: 0,
       isPlaying: false,
-      progress: 0
     }));
   };
 
   const togglePlay = () => {
     // Don't start playing if we're at the end
     if (!state.isPlaying && state.currentIndex >= state.words.length - 1) {
-      setState(prev => ({ ...prev, currentIndex: 0, progress: 0, isPlaying: true }));
+      setState(prev => ({ ...prev, currentIndex: 0, isPlaying: true }));
     } else {
       setState(prev => ({ ...prev, isPlaying: !prev.isPlaying }));
     }
@@ -37,15 +36,7 @@ export default function Home() {
     setState(prev => ({
       ...prev,
       currentIndex: newIndex,
-      progress: calculateProgress(newIndex, prev.words.length)
     }));
-  };
-
-  const handleProgressChange = (newProgress: number) => {
-    if (state.words.length === 0) return;
-    // Calculate the target index based on the progress percentage
-    const targetIndex = Math.round((newProgress / 100) * (state.words.length - 1));
-    jumpTo(targetIndex);
   };
 
   useEffect(() => {
@@ -64,7 +55,6 @@ export default function Home() {
           return {
             ...prev,
             currentIndex: newIndex,
-            progress: calculateProgress(newIndex, prev.words.length)
           };
         });
       }, msPerWord(state.wpm));
@@ -76,18 +66,6 @@ export default function Home() {
       }
     };
   }, [state.isPlaying, state.wpm]);
-
-  const handleReset = () => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-    }
-    setState(prev => ({
-      ...prev,
-      currentIndex: 0,
-      isPlaying: false,
-      progress: 0
-    }));
-  };
 
   return (
     <div className="min-h-screen bg-background p-4 flex flex-col items-center justify-center gap-8">
@@ -105,13 +83,12 @@ export default function Home() {
             <Controls
               isPlaying={state.isPlaying}
               wpm={state.wpm}
-              progress={state.progress}
+              wordsRead={state.currentIndex + 1}
+              totalWords={state.words.length}
               onPlayPause={togglePlay}
               onWPMChange={updateWPM}
               onRewind={() => jumpTo(state.currentIndex - 1)}
               onForward={() => jumpTo(state.currentIndex + 1)}
-              onReset={handleReset}
-              onProgressChange={handleProgressChange}
             />
           </>
         )}

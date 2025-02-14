@@ -5,31 +5,28 @@ import {
   PauseIcon,
   RotateCcwIcon,
   RotateCwIcon,
-  RefreshCwIcon,
 } from "lucide-react";
 
 interface ControlsProps {
   isPlaying: boolean;
   wpm: number;
-  progress: number;
+  wordsRead: number;
+  totalWords: number;
   onPlayPause: () => void;
   onWPMChange: (wpm: number) => void;
   onRewind: () => void;
   onForward: () => void;
-  onReset: () => void;
-  onProgressChange: (progress: number) => void;
 }
 
 export default function Controls({
   isPlaying,
   wpm,
-  progress,
+  wordsRead,
+  totalWords,
   onPlayPause,
   onWPMChange,
   onRewind,
   onForward,
-  onReset,
-  onProgressChange,
 }: ControlsProps) {
   return (
     <div className="space-y-6">
@@ -77,26 +74,9 @@ export default function Controls({
         />
       </div>
 
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-muted-foreground">Progress</span>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onReset}
-            className="h-8 px-2"
-          >
-            <RefreshCwIcon className="h-4 w-4 mr-1" />
-            Reset
-          </Button>
-        </div>
-        <Slider
-          value={[progress]}
-          min={0}
-          max={100}
-          step={1}
-          onValueChange={(value) => onProgressChange(value[0])}
-        />
+      <div className="flex items-center justify-between text-sm">
+        <span className="text-muted-foreground">Progress</span>
+        <span className="font-medium">{wordsRead} / {totalWords} words</span>
       </div>
     </div>
   );
