@@ -1,6 +1,5 @@
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import {
   PlayIcon,
   PauseIcon,
@@ -18,6 +17,7 @@ interface ControlsProps {
   onRewind: () => void;
   onForward: () => void;
   onReset: () => void;
+  onProgressChange: (progress: number) => void;
 }
 
 export default function Controls({
@@ -29,6 +29,7 @@ export default function Controls({
   onRewind,
   onForward,
   onReset,
+  onProgressChange,
 }: ControlsProps) {
   return (
     <div className="space-y-6">
@@ -40,7 +41,7 @@ export default function Controls({
         >
           <RotateCcwIcon className="h-4 w-4" />
         </Button>
-        
+
         <Button
           size="icon"
           onClick={onPlayPause}
@@ -52,7 +53,7 @@ export default function Controls({
             <PlayIcon className="h-6 w-6" />
           )}
         </Button>
-        
+
         <Button
           variant="outline"
           size="icon"
@@ -89,7 +90,13 @@ export default function Controls({
             Reset
           </Button>
         </div>
-        <Progress value={progress} />
+        <Slider
+          value={[progress]}
+          min={0}
+          max={100}
+          step={1}
+          onValueChange={(value) => onProgressChange(value[0])}
+        />
       </div>
     </div>
   );

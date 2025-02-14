@@ -37,6 +37,12 @@ export default function Home() {
     }));
   };
 
+  const handleProgressChange = (newProgress: number) => {
+    if (state.words.length === 0) return;
+    const newIndex = Math.floor((newProgress / 100) * state.words.length);
+    jumpTo(newIndex);
+  };
+
   useEffect(() => {
     if (timerRef.current) {
       clearInterval(timerRef.current);
@@ -69,7 +75,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background p-4 flex flex-col items-center justify-center gap-8">
       <h1 className="text-4xl font-bold text-primary">Speed Reader</h1>
-      
+
       <Card className="w-full max-w-2xl p-6 space-y-6">
         {state.words.length === 0 ? (
           <TextInput onTextSubmit={updateText} />
@@ -88,6 +94,7 @@ export default function Home() {
               onRewind={() => jumpTo(state.currentIndex - 1)}
               onForward={() => jumpTo(state.currentIndex + 1)}
               onReset={() => setState(initialReaderState)}
+              onProgressChange={handleProgressChange}
             />
           </>
         )}
