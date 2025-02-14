@@ -18,10 +18,9 @@ export default function Home() {
   };
 
   const togglePlay = () => {
+    // Don't start playing if we're at the end
     if (!state.isPlaying && state.currentIndex >= state.words.length - 1) {
       setState(prev => ({ ...prev, currentIndex: 0, isPlaying: true }));
-    } else if (state.currentIndex >= state.words.length - 1) {
-      setState(prev => ({ ...prev, currentIndex: 0, isPlaying: false }));
     } else {
       setState(prev => ({ ...prev, isPlaying: !prev.isPlaying }));
     }
@@ -37,7 +36,6 @@ export default function Home() {
     setState(prev => ({
       ...prev,
       currentIndex: newIndex,
-      isPlaying: newIndex < state.words.length - 1 ? prev.isPlaying : false
     }));
   };
 
@@ -89,8 +87,8 @@ export default function Home() {
               totalWords={state.words.length}
               onPlayPause={togglePlay}
               onWPMChange={updateWPM}
-              onRewind={() => jumpTo(state.currentIndex - 10)}
-              onForward={() => jumpTo(state.currentIndex + 10)}
+              onRewind={() => jumpTo(state.currentIndex - 1)}
+              onForward={() => jumpTo(state.currentIndex + 1)}
             />
           </>
         )}
