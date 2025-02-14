@@ -8,15 +8,15 @@ interface WordDisplayProps {
 
 export default function WordDisplay({ word, isPlaying }: WordDisplayProps) {
   return (
-    <Card className="p-12 flex items-center justify-center bg-muted/50">
+    <Card className="p-8 flex items-center justify-center bg-muted/50">
       <AnimatePresence mode="wait">
         <motion.span
           key={word}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.2 }}
-          className={`text-4xl md:text-6xl font-bold ${
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 20 }}
+          transition={{ duration: 0.15 }}
+          className={`text-lg leading-relaxed ${
             isPlaying ? "text-primary" : "text-foreground"
           }`}
         >
