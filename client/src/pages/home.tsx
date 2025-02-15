@@ -61,7 +61,7 @@ export default function Home() {
             currentIndex: newIndex,
           };
         });
-      }, msPerWord(state.wpm));
+      }, msPerWord(state.wpm, state.words[state.currentIndex]));
     }
 
     return () => {
