@@ -17,10 +17,8 @@ export const initialReaderState: ReaderState = {
 export function splitIntoWords(text: string): string[] {
   return text
     .trim()
-    .split(/[.!?]+/)
-    .map(sentence => sentence.trim())
-    .filter(sentence => sentence.length > 0)
-    .map(sentence => sentence + ".");
+    .split(/\s+/)
+    .filter(word => word.length > 0);
 }
 
 export function msPerWord(wpm: number): number {
