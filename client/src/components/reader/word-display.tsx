@@ -16,7 +16,7 @@ export default function WordDisplay({ word, isPlaying }: WordDisplayProps) {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0.45, x: -20 }}
           transition={{ duration: 0.1 }}
-          className={`text-4xl md:text-6xl font-bold ${
+          className={`text-xl md:text-3xl font-medium max-w-2xl text-center ${
             isPlaying ? "text-primary" : "text-foreground"
           }`}
         >
