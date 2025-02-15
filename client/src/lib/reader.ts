@@ -23,9 +23,8 @@ export function splitIntoWords(text: string): string[] {
     .map(sentence => sentence + ".");
 }
 
-export function msPerWord(wpm: number, sentence: string): number {
-  const wordCount = sentence.trim().split(/\s+/).length;
-  return (wordCount * 60 * 1000) / wpm;
+export function msPerWord(wpm: number): number {
+  return (60 * 1000) / wpm;
 }
 
 export function clamp(value: number, min: number, max: number): number {
