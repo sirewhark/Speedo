@@ -92,7 +92,6 @@ export default function Home() {
               onPlayPause={togglePlay}
               onWPMChange={updateWPM}
               onRewind={rewind}
-              onForward={() => jumpTo(state.currentIndex + 1)}
             />
           </>
         )}

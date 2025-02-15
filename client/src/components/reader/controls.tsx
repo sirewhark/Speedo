@@ -4,7 +4,7 @@ import {
   PlayIcon,
   PauseIcon,
   RotateCcwIcon,
-  RotateCwIcon,
+  RefreshCwIcon,
 } from "lucide-react";
 
 interface ControlsProps {
@@ -15,7 +15,6 @@ interface ControlsProps {
   onPlayPause: () => void;
   onWPMChange: (wpm: number) => void;
   onRewind: () => void;
-  onForward: () => void;
 }
 
 export default function Controls({
@@ -54,9 +53,9 @@ export default function Controls({
         <Button
           variant="outline"
           size="icon"
-          onClick={onForward}
+          onClick={onRewind}
         >
-          <RotateCwIcon className="h-4 w-4" />
+          <RefreshCwIcon className="h-4 w-4" />
         </Button>
       </div>
 
