@@ -39,6 +39,10 @@ export default function Home() {
     }));
   };
 
+  const rewind = () => {
+    jumpTo(0);
+  }
+
   useEffect(() => {
     if (timerRef.current) {
       clearInterval(timerRef.current);
@@ -87,7 +91,7 @@ export default function Home() {
               totalWords={state.words.length}
               onPlayPause={togglePlay}
               onWPMChange={updateWPM}
-              onRewind={() => jumpTo(state.currentIndex - 1)}
+              onRewind={rewind}
               onForward={() => jumpTo(state.currentIndex + 1)}
             />
           </>
